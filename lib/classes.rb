@@ -1,36 +1,63 @@
-#!/usr/bin/env ruby
 class Board
+  attr_accessor :board, :board_num
   def initialize
-    @board = [" "," "," "," "," "," "," "," "," "," "," "]
+    @game_board = [" "," "," "," "," "," "," "," "," "," "," "]
     @board_num = []
   end
 
   def display_board
-    puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
+    puts " #{@game_board[0]} | #{@game_board[1]} | #{@game_board[2]} "
     puts "-----------"
-    puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
+    puts " #{@game_board[3]} | #{@game_board[4]} | #{@game_board[5]} "
     puts "-----------"
-    puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
+    puts " #{@game_board[6]} | #{@game_board[7]} | #{@game_board[8]} "
   end
 
-  def count_board
-    @board.length.times do |i|
-        if @board[i] == "X"
-            board_num << i
+  def add_to_board(choice, player)
+    @game_board[choice-1] = player
+  end
+
+  def count_board(player)
+    @game_board.length.times do |i|
+        if @game_board[i] == player
+            @board_num << i
         else
-            board_num << nil
+            @board_num << nil
         end
     end
-   end 
+  end 
 
-  def has_winner(board_num)
-    WIN.any? {|line| (line - board_num) == [] }
+  def position_check(num)
+    if @board[num].any?
+      return true
+    else
+      return false
+    end
+  end
+  
+  def has_winner
+    WIN.any? {|line| (line - @board_num) == [] }
   end
 end
 
-class Players
+class Player
+  attr_accessor :choice, :player
   def initialize
-    @players = ['X', 'O']
-    @input = gets.to_i 
+    @choice = nil
+    @player = 'X'
   end
+
+  def switch
+    if $count % 2 == 0
+      @player = 'X'
+    else
+      @player = 'O'
+    end
+  end
+
+  def num_choice
+    @choice = gets.to_i
+    return @choice
+  end
+
 end
