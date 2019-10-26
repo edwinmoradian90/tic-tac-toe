@@ -1,8 +1,16 @@
 class Board
-  attr_accessor :board, :board_num
+  attr_accessor :game_board, :board_num
   def initialize
     @game_board = [" "," "," "," "," "," "," "," "," "," "," "]
     @board_num = []
+  end
+
+  def invalid_move(choice)
+    if choice =~ /[1-9]/ && @game_board[choice-1].empty?
+      return true
+    else
+      return false
+    end
   end
 
   def display_board
@@ -18,11 +26,12 @@ class Board
   end
 
   def count_board(player)
+    @board_num = []
     @game_board.length.times do |i|
         if @game_board[i] == player
             @board_num << i
         else
-            @board_num << nil
+          @board_num << nil
         end
     end
   end 
@@ -55,8 +64,21 @@ class Player
     end
   end
 
-  def num_choice
+  def invalid_move(game_board)
+    if @choice.between?(1,9) && game_board[@choice-1] == " "
+      return true
+    else
+      return false
+    end
+  end
+
+  def num_choice(game_board)
     @choice = gets.to_i
+    until invalid_move(game_board)
+      puts "\nERROR: Number already in use or not a valid number between 1-9: "
+      puts "Please try again: \n\n"
+      @choice = gets.to_i
+    end
     return @choice
   end
 
