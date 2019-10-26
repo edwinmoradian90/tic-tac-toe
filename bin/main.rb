@@ -11,22 +11,28 @@ class Tic
   def initialize
     @board = Board.new
     @player = Player.new
-    @choice = nil
   end
  
   def run
-    puts "Welcome to tic tac toe in Ruby"
+    puts "\nWelcome to tic tac toe in Ruby\n"
     while $count < 9
-      puts "Pick a number between 1-9: "
       @player.switch
-      @board.add_to_board(@player.num_choice, @player.player)
+      puts "\nPlayer #{@player.player}, pick a number between 1-9: \n\n"
+      @board.add_to_board(
+        @player.num_choice(@board.game_board), 
+        @player.player
+      )
+      puts
       @board.display_board
       @board.count_board(@player.player)
       if @board.has_winner
-        puts "\nYou've won player #{@player.player}\n"
+        puts "\nGAME OVER!\n\nWinner player #{@player.player}!\n\n"
         break
       end
       $count += 1
+    end
+    if $count >= 9
+      puts "\nGame is a draw\n\n"
     end
   end
 end
