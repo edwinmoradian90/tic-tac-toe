@@ -1,5 +1,5 @@
 class Board
-  attr_accessor :board, :board_num
+  attr_accessor :game_board, :board_num
   def initialize
     @game_board = [" "," "," "," "," "," "," "," "," "," "," "]
     @board_num = []
@@ -18,7 +18,8 @@ class Board
   end
 
   def count_board(player)
-    @game_board.length.times do |i|
+    @board_num = []
+    9.times do |i|
         if @game_board[i] == player
             @board_num << i
         else
@@ -55,8 +56,13 @@ class Player
     end
   end
 
-  def num_choice
+  def num_choice(game_board)
     @choice = gets.to_i
+    until (game_board[@choice-1] == " ") && (@choice.between?(1,9))
+      puts "\nERROR: Number needs to be between 1-9 and not used already...\n"
+      puts "Please input another number.\n\n"
+      @choice = gets.to_i
+    end
     return @choice
   end
 

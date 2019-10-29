@@ -12,27 +12,41 @@ class Tic
     @board = Board.new
     @player = Player.new
   end
- 
+
+  def intro
+    puts "\nWelcome to tic tac toe in Ruby!"
+    puts "Press 'ctrl + c' to exit at anytime.\n"
+  end
+
+  def game_draw?
+    $count >= 9
+  end
+
+  def game_winner?
+    @board.has_winner
+  end
+
   def run
-    puts "\nWelcome to tic tac toe in Ruby\n"
+    intro
     while $count < 9
       @player.switch
       puts "\nPlayer #{@player.player}, pick a number between 1-9: \n\n"
+      @player.num_choice(@board.game_board)
       @board.add_to_board(
-        @player.num_choice(@board.game_board), 
-        @player.player
+        @player.choice,
+        @player.player,
       )
       puts
       @board.display_board
       @board.count_board(@player.player)
-      if @board.has_winner
+      if game_winner?
         puts "\nGAME OVER!\n\nWinner player #{@player.player}!\n\n"
         break
       end
       $count += 1
     end
-    if $count >= 9
-      puts "\nGame is a draw\n\n"
+    if game_draw?
+      puts "\nGame is a draw...\n\n"
     end
   end
 end
