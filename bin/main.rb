@@ -1,19 +1,43 @@
 #!/usr/bin/env ruby
+require '../lib/classes.rb'
 
-puts 'Hello World!'
-puts 'Welcome to tic-tac-toe in Ruby'
-puts 'Set count = 0'
-puts 'player = count % 2 == 0 ? "X" : "O"'
-puts 'ENTER WHILE LOOP: while count < 9'
-puts 'check count'
-puts 'check player X or O'
-puts 'ask for move'
-puts 'get.chomp move'
-puts 'check if move is valid (1-9 only), if it is continue, if not break and return error'
-puts 'pass move into array of moves'
-puts 'display on board the move'
-puts 'check after move if board is in a win condition'
-puts 'if board is in win condition, return congrats player youve won, else continue'
-puts 'add one to count: count += 1'
-puts 'if count is = 9 return " Game is a draw please start over"'
+WIN = [[0, 1, 2], [3, 4, 5], [6, 7, 8], 
+       [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+       [0, 4, 8], [2, 4, 6]] 
+
+$count = 0
+class Tic
+
+  def initialize
+    @board = Board.new
+    @player = Player.new
+  end
+ 
+  def run
+    puts "\nWelcome to tic tac toe in Ruby\n"
+    while $count < 9
+      @player.switch
+      puts "\nPlayer #{@player.player}, pick a number between 1-9: \n\n"
+      @board.add_to_board(
+        @player.num_choice(@board.game_board), 
+        @player.player
+      )
+      puts
+      @board.display_board
+      @board.count_board(@player.player)
+      if @board.has_winner
+        puts "\nGAME OVER!\n\nWinner player #{@player.player}!\n\n"
+        break
+      end
+      $count += 1
+    end
+    if $count >= 9
+      puts "\nGame is a draw\n\n"
+    end
+  end
+end
+
+tic = Tic.new
+tic.run
+
 
