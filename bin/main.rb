@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require '../lib/classes.rb'
+require_relative '../lib/classes.rb'
 
 WIN = [[0, 1, 2], [3, 4, 5], [6, 7, 8], 
        [0, 3, 6], [1, 4, 7], [2, 5, 8], 
@@ -37,7 +37,7 @@ class Tic
         @player.player,
       )
       puts
-      @board.display_board
+      puts @board.display_board
       @board.count_board(@player.player)
       if game_winner?
         puts "\nGAME OVER!\n\nWinner player #{@player.player}!\n\n"
