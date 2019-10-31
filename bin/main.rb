@@ -37,7 +37,7 @@ class Tic
         @player.player,
       )
       puts
-      @board.display_board
+      puts @board.display_board
       @board.count_board(@player.player)
       if game_winner?
         puts "\nGAME OVER!\n\nWinner player #{@player.player}!\n\n"
