@@ -27,7 +27,7 @@ class Board
             @board_num << nil
         end
     end
-  end 
+  end
 
   def position_check(num)
     if @board[num].any?
@@ -36,7 +36,7 @@ class Board
       return false
     end
   end
-  
+
   def has_winner
     WIN.any? {|line| (line - @board_num) == [] }
   end
