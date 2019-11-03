@@ -29,14 +29,6 @@ class Board
     end
   end
 
-  def position_check(num)
-    if @board[num].any?
-      return true
-    else
-      return false
-    end
-  end
-
   def has_winner
     WIN.any? {|line| (line - @board_num) == [] }
   end
