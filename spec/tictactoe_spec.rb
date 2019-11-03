@@ -9,18 +9,33 @@ $count = 0
 
 describe Board do
 
-	let(:board) {Board.new} 
+	let!(:board) {Board.new} 
 	let(:board_num) {}
 
 	describe '#initialize' do
 		it "checks it board is created" do
-			expect(board.game_board).to match_array([" "," "," "," "," "," "," "," "," "," "])
+			expect(board.game_board).to match_array([" "," "," "," "," "," "," "," "," "])
 		end
 	end
 
 	context 'when initialized helper array' do
 		it 'helper array is empty' do
 			expect(board.board_num).to match_array([])
+		end
+	end
+
+	describe '#add_to_board' do
+		it 'adds "X" or "O" to game board' do
+			board.add_to_board(0, 'X')
+			expect(board.game_board).to contain_exactly("X"," "," "," "," "," "," "," "," ")
+		end
+	end
+
+	describe '#count_board' do
+		it 'returns array that contains either a number or nil as an element' do
+			board.game_board = ['X','O','X','O','X'," "," "," "," "]
+			board.count_board('X')
+			expect(board.board_num).to match_array([0,nil,2,nil,4,nil,nil,nil,nil])
 		end
 	end
 
