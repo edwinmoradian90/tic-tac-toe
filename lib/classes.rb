@@ -1,7 +1,7 @@
 class Board
   attr_accessor :game_board, :board_num
   def initialize
-    @game_board = [" "," "," "," "," "," "," "," "," "," "," "]
+    @game_board = [" "," "," "," "," "," "," "," "," "]
     @board_num = []
   end
 
@@ -27,16 +27,8 @@ class Board
             @board_num << nil
         end
     end
-  end 
-
-  def position_check(num)
-    if @board[num].any?
-      return true
-    else
-      return false
-    end
   end
-  
+
   def has_winner
     WIN.any? {|line| (line - @board_num) == [] }
   end
